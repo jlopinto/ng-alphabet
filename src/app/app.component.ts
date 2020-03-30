@@ -49,4 +49,9 @@ export class AppComponent {
   ngOnInit() {
 
   }
+
+  trackByFn(index, item) {
+    console.log(item, index);
+    return index;
+  }
 }

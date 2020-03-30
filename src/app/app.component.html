@@ -14,11 +14,17 @@
     <div class="scoreboard__goal">{{ game._ALPHABET.length }}</div>
   </div>
   <div class="sky">
+    <app-cloud></app-cloud>
     <div id="sky__inner" class="sky__inner">
-      <app-letter *ngFor="let letter of animatedLetters;" [letter]="letter"></app-letter>
+      <app-letter *ngFor="let letter of animatedLetters; trackBy: trackByFn" [letter]="letter"></app-letter>
     </div>
-  </div>
-  <div class="sea p-4">
+    <div class="sea">
+      <div class="sea__line"></div>
+      <div class="sea__line"></div>
+      <div class="sea__line"></div>
+      <div class="sea__line"></div>
+      <div class="sea__line"></div>
+    </div>
   </div>
   <app-start-menu *ngIf="!game.started && !game.ended"></app-start-menu>
   <app-result-menu *ngIf="game.ended" [result]="game.runResult"></app-result-menu>

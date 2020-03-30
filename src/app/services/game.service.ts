@@ -66,7 +66,7 @@ export class GameService {
   start() {
     this.started = true;
     this.ended = false;
-    this.ALPHABET = 'abcdefghijklmnopqrstuvwxyz'.split('');
+    this.ALPHABET = 'abc'.split('');
     this._ALPHABET = [...this.ALPHABET];
     this.loop();
 
@@ -129,7 +129,6 @@ export class GameService {
     this.animatedLetters = reset ? [...value] : [...this.animatedLetters, value];
     this.animatedLetters$.next(this.animatedLetters);
   }
-
 
   missedLetter(letter) {
     if (this.started) {

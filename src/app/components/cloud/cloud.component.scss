@@ -1,0 +1,32 @@
+:host {
+  display: flex;
+  flex-direction: column;
+
+
+}
+
+.line {
+  height: 1em;
+  border-radius: 1em;
+  background-color: rgba(#fff,.9);
+  display: inline-block;
+   box-shadow: 1px 1px 0px rgba(#000, .4);
+}
+
+.line-offset--1 { margin-left: 1em; }
+.line-offset--2 { margin-left: 2em; }
+.line-offset--3 { margin-left: 3em; }
+.line-offset--4 { margin-left: 4em; }
+.line-offset--5 { margin-left: 5em; }
+.line-offset--6 { margin-left: 6em; }
+
+.line--1 { width: 1em; }
+.line--2 { width: 2em; }
+.line--3 { width: 3em; }
+.line--4 { width: 4em; }
+.line--5 { width: 5em; }
+.line--6 { width: 6em; }
+.line--7 { width: 7em; }
+.line--8 { width: 8em; }
+.line--9 { width: 9em; }
+.line--10 { width: 10em; }

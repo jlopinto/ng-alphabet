@@ -8,6 +8,7 @@ import { PauseMenuComponent } from './components/pause-menu/pause-menu.component
 import { StartMenuComponent } from './components/start-menu/start-menu.component';
 import { ResultMenuComponent } from './components/result-menu/result-menu.component';
 import { RatingStarComponent } from './components/rating-star/rating-star.component';
+import { CloudComponent } from './components/cloud/cloud.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { RatingStarComponent } from './components/rating-star/rating-star.compon
     PauseMenuComponent,
     StartMenuComponent,
     ResultMenuComponent,
-    RatingStarComponent
+    RatingStarComponent,
+    CloudComponent
   ],
   imports: [
     BrowserModule,
