@@ -1,1 +1,57 @@
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
 /* You can add global styles to this file, and also import other style files */
+body {
+  background-color: #999;
+  color: #222;
+  padding: 0;
+  margin: 0;
+}
+
+.board {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.sky {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background-color: cornflowerblue;
+  background-image: linear-gradient(0deg, #40fef4 0%, #70b9fa 100%);
+  overflow: hidden;
+
+  position: relative;
+
+  &::before {
+    content: '';
+    display: block;
+
+    position: absolute;
+    top: 3rem;
+    right: 3rem;
+
+    border-radius: 50%;
+    border: 2px solid orange;
+
+    background-color: gold;
+    width: 8rem;
+    height: 8rem;
+
+    box-shadow: 1px 1px 14px gold;
+  }
+}
+
+.sky__inner {
+  padding: 0 4rem;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.sea {
+  background-color: dodgerblue;
+}

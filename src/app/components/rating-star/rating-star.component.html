@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col" *ngFor="let level of done">
+    <svg class="level level--reached">
+      <use xlink:href="#star"></use>
+    </svg>
+  </div>
+  <div class="col" *ngFor="let level of missed">
+    <svg class="level">
+      <use xlink:href="#star"></use>
+    </svg>
+  </div>
+</div>

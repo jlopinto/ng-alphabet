@@ -1,0 +1,19 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.level {
+  display: block;
+  width: 32px;
+  height: 32px;
+  color: #ccc;
+  fill: red;
+}
+
+.level--reached {
+  color: gold;
+  fill: gold;
+}
