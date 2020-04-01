@@ -16,11 +16,16 @@
         <div *ngIf="result.missed.length > 0">
           lettre{{result.missed.length > 0 ? 's' : ''}}
           perdue{{result.missed.length > 0 ? 's' : ''}}:
-          {{ result.missed.join(', ') }}</div>
+          <span *ngFor="let letter of result.missed">
+            {{letter.item}}
+          </span>
+        </div>
         <div *ngIf="result.success.length > 0">
           lettre{{result.success.length > 0 ? 's' : ''}}
           sauvée{{result.success.length > 0 ? 's' : ''}}:
-          {{ result.success.join(', ') }}
+          <span *ngFor="let letter of result.success">
+            {{letter.item}}
+          </span>
         </div>
       </div>
     </div>

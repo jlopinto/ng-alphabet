@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewChild, HostBinding } from '@angular/core';
 import { GameService } from 'src/app/services/game.service';
+import { LettersStoreService } from 'src/app/services/letter-store.service';
 
 @Component({
   selector: 'app-result-menu',
@@ -14,10 +15,9 @@ export class ResultMenuComponent implements OnInit {
   resultLabel;
   rate
 
-  @HostBinding('class') classAttribute: string;
-
   constructor(
-    public game: GameService
+    public game: GameService,
+    private store: LettersStoreService
   ) {
     this.resultLabel = '';
     this.rate = 0;
@@ -52,10 +52,10 @@ export class ResultMenuComponent implements OnInit {
 
   ngOnInit() {
     this.setResultLabel();
-    this.classAttribute = 'modal fade show';
   }
 
   setResultLabel() {
+    console.log(this.result);
     const { success, challenge } = this.result;
     const rate = success.length ? (success.length * 100) / challenge.length : success.length;
     this.resultLabel = this.resultLevels.find(level => level.minrate <= rate);

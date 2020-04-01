@@ -25,7 +25,7 @@ body {
   position: relative;
 
   &::before {
-    content: '';
+    content: "";
     display: block;
 
     position: absolute;
@@ -57,33 +57,91 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: dodgerblue;
 }
 
 .sea__line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
   height: 3em;
+  width: 100%;
 
-  &:nth-child(1) {
-    background-color: rgba(blue, .9);
-    z-index: 100;
-  }
-  &:nth-child(2) {
-    background-color: rgba(blue, .7);
-    z-index: 200;
-  }
+  overflow: visible;
 
-  &:nth-child(3) {
-    background-color: rgba(blue, .5);
-    z-index: 300;
+  &:nth-child(5) {
+    height: 6em;
+    background-color: rgba(#6ca6fc, 1);
+    z-index: 500;
   }
 
   &:nth-child(4) {
-    background-color: rgba(blue, .3);
+    height: 9em;
+    background-color: rgba(#5396fc, 1);
     z-index: 400;
   }
+  &:nth-child(3) {
+    height: 12em;
+    background-color: rgba(#3a87fc, 1);
+    z-index: 300;
+  }
+  &:nth-child(2) {
+    height: 15em;
+    background-color: rgba(#2078fc, 1);
+    z-index: 200;
+  }
+  &:nth-child(1) {
+    height: 18em;
+    animation: none;
+    background-color: rgba(#0769fc, 1);
+    z-index: 100;
+  }
+}
 
-  &:nth-child(5) {
-    background-color: rgba(blue, .2);
-    z-index: 500;
+// .sea__wave {
+//   position: absolute;
+//   bottom: 100%;
+//   width: 100%;
+
+//   > use {
+//     animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+//   }
+// }
+
+.beach__line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3em;
+  background-color: #f0df89;
+  z-index: 600;
+}
+
+@keyframes move-forever {
+  0% {
+    transform: translate3d(-90px, 0, 0);
+  }
+  100% {
+    transform: translate3d(85px, 0, 0);
+  }
+}
+
+@keyframes waving {
+  0% {
+    transform: rotateZ(0deg);
+  }
+
+  25% {
+    transform: rotateZ(1deg);
+  }
+
+  75% {
+    transform: rotateZ(-1deg);
+  }
+
+  100% {
+    transform: rotateZ(0deg);
   }
 }

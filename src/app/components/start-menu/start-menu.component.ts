@@ -9,12 +9,9 @@ import { GameService } from 'src/app/services/game.service';
 
 export class StartMenuComponent implements OnInit {
 
-  @HostBinding('class') classAttribute: string;
-
   constructor(public gs: GameService) { }
 
   ngOnInit() {
-    this.classAttribute = 'modal fade show';
   }
 
   startGame() {

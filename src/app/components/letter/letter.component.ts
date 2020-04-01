@@ -1,8 +1,9 @@
-import { animate, state, style, transition, trigger, useAnimation } from '@angular/animations';
-import { Component, HostBinding, HostListener, Input, OnInit } from '@angular/core';
+import { transition, trigger, useAnimation } from '@angular/animations';
+import { Component, HostBinding, HostListener, Input } from '@angular/core';
+import { Letter } from 'src/app/models/letter.model';
 import { GameService } from 'src/app/services/game.service';
+import { LettersStoreService } from 'src/app/services/letter-store.service';
 import { fallingEnter, fallingLeave } from 'src/app/transitions.module';
-
 
 @Component({
   selector: 'app-letter',
@@ -10,83 +11,104 @@ import { fallingEnter, fallingLeave } from 'src/app/transitions.module';
   styleUrls: ['./letter.component.scss'],
   animations: [
     trigger('falling', [
-      state('found', style({ opacity: 0 })),
-      state('lost', style({ top: '100%', left: '{{xEnd}}', zIndex: '{{zIndex}}' }), { params: { xEnd: '25%', zIndex: '150' } }),
       transition(':enter', useAnimation(fallingEnter)),
-      transition(':leave', useAnimation(fallingLeave)),
-      transition('lost => found', animate('1s'))
+      transition(':leave', useAnimation(fallingLeave))
     ])
   ]
 })
 
-export class LetterComponent implements OnInit {
+export class LetterComponent {
 
   private fallingState: string;
   private zIndexes: string[];
+  private scales: string[];
 
-  @Input() letter: string;
+  @Input() letter: Letter;
+
   @HostBinding('@falling') get fn() {
-    console.log(this.game.animatedLetters);
     return {
       value: this.fallingState,
-      params: {
-        fallingSpeed: this.game.random(this.game.fallingSpeed, this.game.fallingSpeedRange) + 's',
-        xStart: this.randomPercentage(),
-        xEnd: this.randomPercentage(),
-        sIndex: this.randomZindex()
-      }
+      params: this.setFallingParams()
     }
   };
 
-  @HostListener('@falling.done', ['$event']) captureDoneEvent($event: AnimationEvent) {
-    this.game.hitTest(this.letter, this.fallingState, $event);
+  @HostListener('@falling.done', ['$event']) captureDoneEvent($event) {
+    this.hitTest(this.letter, this.fallingState, $event);
   }
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    if (this.game.started && this.game.animatedLetters.includes(this.letter)) {
-      event.preventDefault();
-      const key = event.key.toLowerCase();
-      if (this.letter == key && !this.game.successLetters.includes(this.letter)) {
-
-        this.fallingState = 'found';
-        const audio = new Audio(`../../../assets/audio/${this.letter}.mp3`);
-        audio.play();
-        this.game.successLetter(this.letter);
-
-        return false;
-      }
-    }
+    return this.letterFound(event.key.toLowerCase(), event);
   }
 
   @HostListener('tap', ['$event'])
-  handleClickEvent(event: KeyboardEvent) {
-    if (this.game.started) {
-      if (this.game.animatedLetters.includes(this.letter) && !this.game.successLetters.includes(this.letter)) {
-        this.fallingState = 'found';
-        const audio = new Audio(`../../../assets/audio/${this.letter}.mp3`);
-        audio.play();
-      }
-    }
-
+  handleClickEvent(event) {
+    return this.letterFound(this.letter.item, event);
   }
 
-  constructor(private game: GameService) {
+  constructor(
+    private game: GameService,
+    private store: LettersStoreService
+  ) {
     this.fallingState = 'lost';
-    this.zIndexes = ['101', '201', '301', '401', '501'];
+    this.zIndexes = ['499', '399', '299', '199', '99'];
+    this.scales = ['1', '0.9', '0.8', '0.7', '0.6'];
   }
 
   randomPercentage() {
-    return Math.floor(Math.random() * 100) + '%';
+    const min = 10;
+    const max = 90;
+    const res = Math.floor(Math.random() * (max - min + 1) + min);
+    return res + '%';
   }
 
-  randomZindex() {
-    console.log(this.zIndexes[Math.floor(Math.random() * this.zIndexes.length)]);
-    return this.zIndexes[Math.floor(Math.random() * this.zIndexes.length)];
+  pickRange() {
+
+    const index = Math.floor(Math.random() * this.zIndexes.length);
+    return {
+      zIndex: this.zIndexes[index],
+      scale: this.scales[index],
+      yEnd: `calc(100% - ${(index + 1) * 3}em)`
+    }
   }
 
-  ngOnInit() {
-
+  letterFound(key, event) {
+    if (
+      this.game.started &&
+      this.letter.item === key &&
+      this.store.letters.filter(storeLetter => storeLetter.item === this.letter.item && storeLetter.isFound === false)
+    ) {
+      event.preventDefault();
+      this.fallingState = 'found';
+      const audio = new Audio(`../../../assets/audio/${this.letter.item}.mp3`);
+      audio.volume = 0.6;
+      audio.play();
+      this.store.setFound(this.letter, true);
+    }
   }
 
+  setFallingParams() {
+    const { zIndex, scale, yEnd } = this.pickRange();
+    const res = {
+      fallingSpeed: this.game.randomRangeSecond(),
+      xStart: this.randomPercentage(),
+      xEnd: this.randomPercentage(),
+      yEnd,
+      zIndex,
+      scale
+    };
+    return res;
+  }
+
+  hitTest(letter, state, event) {
+    const { toState } = event;
+    if (this.game.started && state == 'lost' && toState == 'lost') {
+      this.store.setLost(letter, true);
+      const audio = new Audio(`../../../assets/audio/plouf.mp3`);
+      audio.addEventListener('loadeddata', () => {
+        audio.volume = 0.2;
+        audio.play();
+      });
+    }
+  }
 }
