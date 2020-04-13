@@ -5,12 +5,14 @@ import { uuid } from 'src/app/uuid';
 import { Letter } from 'src/app/models/letter.model';
 
 @Injectable({ providedIn: 'root' })
+
 export class LettersStoreService {
 
+  challenge: string;
+
   constructor() {
-
+    this.challenge = '';
   }
-
 
   get letters(): Letter[] {
     return this._letters.getValue();
@@ -70,18 +72,38 @@ export class LettersStoreService {
     this.letters = [...this.letters];
   }
 
-  init() {
-    this.letters = 'abcdefghijklmnopqrstuvwxyz'.split('').map(item => <Letter>{
+  setChallenge(newChallenge) {
+    if(
+      newChallenge
+      && this.challenge !== newChallenge ) {
+      this.challenge = newChallenge;
+    }
+  }
+
+  init(shuffle) {
+    this.letters = [];
+    this.letters = this.challenge.split('').map(item => <Letter>{
       id: uuid(),
       item: item,
       isAnimated: false,
       isFound: false,
       isLost: false
     })
+
+    if (shuffle) {
+      this.shuffleStore(this.letters);
+    }
+  }
+
+  shuffleStore(a: any[]): any[] {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
   }
 
   reset() {
     this.letters = [];
-    this.init();
   }
 }

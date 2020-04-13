@@ -1,37 +1,33 @@
 <div class="modal-dialog modal-dialog-centered">
-  <div class="modal-content text-center">
+  <div class="modal-content">
     <div class="modal-header justify-content-center">
       <h1>{{resultLabel.message}}</h1>
     </div>
     <div class="modal-body">
-      <app-rating-star [rating]="rate"></app-rating-star>
-      <div class="font-weight-bold"><small>
-          {{result.success.length}}
-          /
-          {{result.challenge.length}}
-        </small></div>
-
-
+      <div class="text-center">
+        <app-rating-star class="mx-auto" [rating]="rate"></app-rating-star>
+      </div>
       <div *ngIf="result !== false" class="mt-4">
-        <div *ngIf="result.missed.length > 0">
-          lettre{{result.missed.length > 0 ? 's' : ''}}
-          perdue{{result.missed.length > 0 ? 's' : ''}}:
-          <span *ngFor="let letter of result.missed">
-            {{letter.item}}
-          </span>
-        </div>
-        <div *ngIf="result.success.length > 0">
-          lettre{{result.success.length > 0 ? 's' : ''}}
+        <div>
+          <span>{{result.success.length}} sur {{result.challenge.length}}
+            lettre{{result.success.length > 0 ? 's' : ''}}</span>
           sauvée{{result.success.length > 0 ? 's' : ''}}:
-          <span *ngFor="let letter of result.success">
-            {{letter.item}}
-          </span>
+          <span *ngIf="result.success.length === 0; else asSuccess">😟</span>
+          <ng-template #asSuccess>
+            <app-challenge-preview [items]="result.success"></app-challenge-preview>
+          </ng-template>
+        </div>
+        <div *ngIf="result.missed.length">
+          {{result.missed.length}} lettre{{result.missed.length > 0 ? 's' : ''}}
+          perdue{{result.missed.length > 0 ? 's' : ''}}:
+          <app-challenge-preview *ngIf="result.missed.length" [items]="result.missed"></app-challenge-preview>
         </div>
       </div>
     </div>
     <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="goToStart()" type="button">Revenir à l'accueil</button>
       <button class="btn btn-primary" (click)="restartGame()">
-        re-commencer !
+        Relancer !
       </button>
     </div>
   </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { GameService } from 'src/app/services/game.service';
 
 @Component({
@@ -9,13 +9,19 @@ import { GameService } from 'src/app/services/game.service';
 
 export class StartMenuComponent implements OnInit {
 
-  constructor(public gs: GameService) { }
+  @Output() toggleConfMenu = new EventEmitter<boolean>();
+
+  constructor(public game: GameService) { }
 
   ngOnInit() {
+
+  }
+
+  showConfMenu() {
+    this.toggleConfMenu.emit(true);
   }
 
   startGame() {
-    this.gs.start();
+    this.game.start();
   }
-
 }

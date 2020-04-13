@@ -1,9 +1,9 @@
-import { transition, trigger, useAnimation } from '@angular/animations';
+import { style, transition, trigger, useAnimation } from '@angular/animations';
 import { Component, HostBinding, HostListener, Input } from '@angular/core';
 import { Letter } from 'src/app/models/letter.model';
 import { GameService } from 'src/app/services/game.service';
 import { LettersStoreService } from 'src/app/services/letter-store.service';
-import { fallingEnter, fallingLeave } from 'src/app/transitions.module';
+import { letterFalling, found } from 'src/app/animations.module';
 
 @Component({
   selector: 'app-letter',
@@ -11,8 +11,9 @@ import { fallingEnter, fallingLeave } from 'src/app/transitions.module';
   styleUrls: ['./letter.component.scss'],
   animations: [
     trigger('falling', [
-      transition(':enter', useAnimation(fallingEnter)),
-      transition(':leave', useAnimation(fallingLeave))
+      transition(':enter', useAnimation(letterFalling)),
+      transition('* => found', useAnimation(found)),
+      transition(':leave', [style({ opacity: 0 })])
     ])
   ]
 })
@@ -22,13 +23,15 @@ export class LetterComponent {
   private fallingState: string;
   private zIndexes: string[];
   private scales: string[];
+  private easings: string[];
 
   @Input() letter: Letter;
+  fallingParams: { fallingSpeed: string; xStart: string; xEnd: string; yEnd: string; zIndex: string; scale: string; };
 
   @HostBinding('@falling') get fn() {
     return {
       value: this.fallingState,
-      params: this.setFallingParams()
+      params: this.fallingParams
     }
   };
 
@@ -38,21 +41,29 @@ export class LetterComponent {
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    return this.letterFound(event.key.toLowerCase(), event);
+    return this.letterFound(event.key);
   }
 
   @HostListener('tap', ['$event'])
   handleClickEvent(event) {
-    return this.letterFound(this.letter.item, event);
+    return this.letterFound(this.letter.item);
   }
 
   constructor(
-    private game: GameService,
+    public game: GameService,
     private store: LettersStoreService
   ) {
+    this.letter = {
+      item: 'b', //ʕ•ᴥ•ʔ
+      id: 'nope',
+      isAnimated: false,
+      isFound: false,
+      isLost: false
+    }
     this.fallingState = 'lost';
     this.zIndexes = ['499', '399', '299', '199', '99'];
     this.scales = ['1', '0.9', '0.8', '0.7', '0.6'];
+    this.easings = ['cubic-bezier(0.55, 0, 1, 0.45)', 'cubic-bezier(0.32, 0, 0.67, 0)', 'cubic-bezier(0.12, 0, 0.39, 0)']
   }
 
   randomPercentage() {
@@ -63,36 +74,49 @@ export class LetterComponent {
   }
 
   pickRange() {
-
     const index = Math.floor(Math.random() * this.zIndexes.length);
     return {
       zIndex: this.zIndexes[index],
       scale: this.scales[index],
-      yEnd: `calc(100% - ${(index + 1) * 3}em)`
+      yEnd: `calc(100% - ${(index + 1.7) * 3}em)`
     }
   }
 
-  letterFound(key, event) {
+  randomEase() {
+    return this.easings[Math.floor(Math.random() * this.easings.length)];
+  }
+
+  letterFound(key) {
     if (
       this.game.started &&
       this.letter.item === key &&
       this.store.letters.filter(storeLetter => storeLetter.item === this.letter.item && storeLetter.isFound === false)
     ) {
-      event.preventDefault();
+
+
+      if (this.fallingState === 'found') {
+        return
+      }
+
       this.fallingState = 'found';
       const audio = new Audio(`../../../assets/audio/${this.letter.item}.mp3`);
-      audio.volume = 0.6;
+      audio.volume = 0.4;
       audio.play();
-      this.store.setFound(this.letter, true);
+
+      return false;
     }
   }
 
   setFallingParams() {
     const { zIndex, scale, yEnd } = this.pickRange();
+    const xStart = this.randomPercentage();
+    const xEnd = this.randomPercentage();
+
     const res = {
       fallingSpeed: this.game.randomRangeSecond(),
-      xStart: this.randomPercentage(),
-      xEnd: this.randomPercentage(),
+      fallingEase: this.randomEase(),
+      xStart,
+      xEnd,
       yEnd,
       zIndex,
       scale
@@ -101,14 +125,28 @@ export class LetterComponent {
   }
 
   hitTest(letter, state, event) {
-    const { toState } = event;
-    if (this.game.started && state == 'lost' && toState == 'lost') {
-      this.store.setLost(letter, true);
-      const audio = new Audio(`../../../assets/audio/plouf.mp3`);
-      audio.addEventListener('loadeddata', () => {
-        audio.volume = 0.2;
-        audio.play();
-      });
+
+    const { toState, fromState } = event;
+
+    if (this.game.started) {
+
+      if (fromState === 'lost' && toState === 'found' && state === 'found') {
+        this.store.setFound(this.letter, true);
+      }
+
+      if (fromState === 'void' && toState === 'lost' && state === 'lost') {
+        this.store.setLost(letter, true);
+        const audio = new Audio(`../../../assets/audio/plouf.mp3`);
+        audio.addEventListener('loadeddata', () => {
+          audio.volume = 0.2;
+          audio.play();
+        });
+      }
+
     }
+  }
+
+  ngOnInit() {
+    this.fallingParams = this.setFallingParams();
   }
 }

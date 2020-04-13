@@ -1,4 +1,6 @@
+$font-family-sans-serif: "Didact Gothic", sans-serif;
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../src/styles/webfonts";
 
 /* You can add global styles to this file, and also import other style files */
 body {
@@ -23,24 +25,6 @@ body {
   overflow: hidden;
 
   position: relative;
-
-  &::before {
-    content: "";
-    display: block;
-
-    position: absolute;
-    top: 3rem;
-    right: 3rem;
-
-    border-radius: 50%;
-    border: 2px solid orange;
-
-    background-color: gold;
-    width: 8rem;
-    height: 8rem;
-
-    box-shadow: 1px 1px 14px gold;
-  }
 }
 
 .sky__inner {
@@ -70,44 +54,81 @@ body {
 
   overflow: visible;
 
+  &:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 100%;
+    right: 0;
+    background-repeat: repeat-x;
+    height: 10px;
+    background-size: 20px 20px;
+
+    animation-name: wave;
+    animation-duration: 150s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+
   &:nth-child(5) {
     height: 6em;
     background-color: rgba(#6ca6fc, 1);
+
     z-index: 500;
+
+    &:before {
+      background-image: radial-gradient(circle at 10px -2px, transparent 12px, #6ca6fc 13px);
+    }
   }
 
   &:nth-child(4) {
     height: 9em;
     background-color: rgba(#5396fc, 1);
+
     z-index: 400;
+
+    &:before {
+      animation-direction: alternate-reverse;
+      background-image: radial-gradient(circle at 10px -2px, transparent 12px, #5396fc 13px);
+    }
   }
   &:nth-child(3) {
     height: 12em;
+
     background-color: rgba(#3a87fc, 1);
+
     z-index: 300;
+
+    &::before {
+      background-image: radial-gradient(circle at 10px -2px, transparent 12px, #3a87fc 13px);
+    }
   }
   &:nth-child(2) {
     height: 15em;
+
     background-color: rgba(#2078fc, 1);
+
     z-index: 200;
+
+    &:before {
+      animation-direction: alternate-reverse;
+      background-image: radial-gradient(circle at 10px -2px, transparent 12px, #2078fc 13px);
+    }
   }
   &:nth-child(1) {
     height: 18em;
+
     animation: none;
     background-color: rgba(#0769fc, 1);
+
     z-index: 100;
+
+    &:before {
+      background-image: radial-gradient(circle at 10px -2px, transparent 12px, #0769fc 13px);
+    }
   }
 }
-
-// .sea__wave {
-//   position: absolute;
-//   bottom: 100%;
-//   width: 100%;
-
-//   > use {
-//     animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
-//   }
-// }
 
 .beach__line {
   position: absolute;
@@ -117,6 +138,91 @@ body {
   height: 3em;
   background-color: #f0df89;
   z-index: 600;
+  overflow: hidden;
+}
+
+.beach__wave {
+  width: 1440px;
+  height: 320px;
+  position: absolute;
+  bottom: -160px;
+  left: 0;
+  transform: translate3d(-60%, -100px, 0);
+  animation: beach-wave 20s ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.beach__wave--2 {
+  animation-name: beach-wave2;
+  animation-direction: alternate-reverse;
+}
+
+.modal-footer {
+  .modal-open & {
+    position: sticky;
+    bottom: 0;
+    background-color: #fff;
+  }
+}
+
+.balloon-1 {
+  fill: chocolate;
+}
+
+.balloon-2 {
+  fill: deeppink;
+}
+
+.balloon-3 {
+  fill: gold;
+}
+
+.balloon-4 {
+  fill: white;
+}
+
+@keyframes wave {
+  from {
+    background-position: 0;
+  }
+  to {
+    background-position: 100%;
+  }
+}
+
+@keyframes beach-wave {
+  0% {
+    opacity: 1;
+    transform: translate3d(-60%, -100px, 0);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: translate3d(20%, -70px, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0%, -100px, 0);
+  }
+}
+
+@keyframes beach-wave2 {
+  0% {
+    opacity: 1;
+    transform: translate3d(-80%, -100px, 0);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: translate3d(0%, -70px, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(-10%, -100px, 0);
+  }
 }
 
 @keyframes move-forever {

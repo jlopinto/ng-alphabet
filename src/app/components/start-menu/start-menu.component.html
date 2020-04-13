@@ -1,17 +1,20 @@
-<div class="modal-dialog modal-dialog-centered">
+<div class="modal-dialog modal-dialog-centered _modal-xl">
   <div class="modal-content">
     <div class="modal-header justify-content-center">
       <h1>Bienvenue sur Alphabet</h1>
     </div>
     <div class="modal-body">
-      <p>Les lettres de l'alphabet vont tomber du ciel ! Trouve les sur ton clavier afin de les sauver d'un bon bain !
-      </p>
+      <p class="text-center">Les lettres ci-dessous vont tomber du ciel ! Trouve les sur ton clavier afin de les sauver
+        avant
+        qu'elles ne touchent l'eau !</p>
+
+      <app-challenge-preview></app-challenge-preview>
     </div>
     <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="showConfMenu()" type="button">Configuration</button>
       <button class="btn btn-primary" (click)="startGame()" type="button">
         Commencer !
       </button>
-      <button class="btn btn-secondary" type="button">Configuration</button>
     </div>
   </div>
 </div>

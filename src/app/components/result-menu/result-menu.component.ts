@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, HostBinding } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { GameService } from 'src/app/services/game.service';
 import { LettersStoreService } from 'src/app/services/letter-store.service';
 
@@ -9,7 +9,7 @@ import { LettersStoreService } from 'src/app/services/letter-store.service';
 })
 
 export class ResultMenuComponent implements OnInit {
-
+  @Output() toggleConfMenu = new EventEmitter<boolean>();
   @Input() result;
   resultLevels;
   resultLabel;
@@ -55,11 +55,21 @@ export class ResultMenuComponent implements OnInit {
   }
 
   setResultLabel() {
-    console.log(this.result);
     const { success, challenge } = this.result;
     const rate = success.length ? (success.length * 100) / challenge.length : success.length;
     this.resultLabel = this.resultLevels.find(level => level.minrate <= rate);
     this.rate = this.resultLabel.index;
+    const audio = new Audio(`../../../assets/audio/${this.rate}-5.mp3`);
+    // Todo: better check/solution
+    if (!this.result.reason) {
+      audio.play();
+    }
+
+  }
+
+  goToStart() {
+    this.store.init(this.game.isRandom);
+    this.game.ended = false;
   }
 
   restartGame() {

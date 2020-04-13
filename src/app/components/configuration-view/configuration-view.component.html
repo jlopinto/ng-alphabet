@@ -1,0 +1,46 @@
+<div class="modal-dialog modal-dialog-centered">
+  <form [formGroup]="configurationForm" class="modal-content">
+    <div class="modal-header justify-content-center">
+      <h1>Configuration</h1>
+    </div>
+    <div class="modal-body">
+      <app-challenge-preview></app-challenge-preview>
+      <div class="form-group mt-3">
+        <label for="challenge">La liste des lettres en jeu</label>
+
+        <input type="text" class="form-control form-control-lg" [ngClass]="{'is-invalid': !configurationForm.controls.challenge.pristine && configurationForm.controls.challenge.invalid}" formControlName="challenge" id="challenge">
+        <small id="emailHelp" class="form-text text-muted">Ce jeu a été pensé pour afficher des lettres...</small>
+      </div>
+      <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" formControlName="isRandom" id="isRandom">
+        <label class="form-check-label" for="isRandom">Afficher les lettres dans le désordre</label>
+      </div>
+      <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" formControlName="isUppercase" id="isUppercase">
+        <label class="form-check-label" for="isUppercase">Afficher les lettres en majuscules</label>
+      </div>
+      <div class="form-group">
+        <label for="fallingSpeed">Vitesse de chute des lettres</label>
+        <input type="range" min=".5" max="10" step=".5" class="form-control-range" formControlName="fallingSpeed"
+          id="fallingSpeed">
+        <small id="emailHelp" class="form-text text-muted">Actuellement défini à
+          {{configurationForm.controls.fallingSpeed.value}}s</small>
+      </div>
+      <div class="form-group">
+        <label for="spawnTimer">Fréquence d'apparition des lettres</label>
+        <input type="range" min=".5" max="10" step=".5" class="form-control-range" formControlName="spawnTimer"
+          id="spawnTimer">
+        <small id="emailHelp" class="form-text text-muted">Actuellement défini à
+          {{configurationForm.controls.spawnTimer.value}}s</small>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="cancelConf()" type="button" >
+        Annuler
+      </button>
+      <button class="btn btn-primary" (click)="saveConf()" type="submit" [disabled]="configurationForm.invalid">
+        Valider
+      </button>
+    </div>
+  </form>
+</div>

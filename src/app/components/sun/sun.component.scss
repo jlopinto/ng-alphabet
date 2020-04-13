@@ -1,0 +1,140 @@
+:host {
+  display: block;
+
+  position: absolute;
+  top: 5rem;
+  right: 5rem;
+
+  width: 8rem;
+  height: 8rem;
+
+  &:before {
+    content: "";
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    background-color: #fc3;
+    background-image: gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0.22, rgb(204, 153, 0)),
+      color-stop(1, rgb(255, 219, 112))
+    );
+    box-shadow: 1px 1px 14px rgba(black, 0.2);
+  }
+
+  animation: sunRotation 120s ease infinite;
+}
+
+@keyframes sunRotation {
+  from {
+    transform: rotateZ(0);
+  }
+
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+
+@keyframes sunRayStretchAfter {
+  from {
+    bottom: 0em;
+  }
+
+  to {
+    bottom: 1em;
+  }
+}
+
+@keyframes sunRayStretchBefore {
+  from {
+    top: 0em;
+  }
+
+  to {
+    top: 1em;
+  }
+}
+
+.sun__ray {
+  z-index: 1;
+  bottom: -25%;
+  left: calc(50% - 0.25em);
+  position: absolute;
+  width: 0.5em;
+  height: 150%;
+  border-radius: 4em;
+  transform-origin: center center;
+  overflow: hidden;
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2em;
+    border-radius: 4em;
+    animation: sunRayStretchBefore 3s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+    background-color: rgba(coral, 0.95);
+  }
+
+  &:after {
+    top: auto;
+    bottom: 0;
+    animation-name: sunRayStretchAfter;
+  }
+
+  $step: 22.5;
+
+  &:nth-child(odd) {
+    &:before,
+    &:after {
+      height: 1em;
+      top: 1em;
+      background-color: rgba(gold, 0.95);
+    }
+
+    &:after {
+      top: auto;
+      bottom: 1em;
+    }
+  }
+
+  // &:nth-child(1) {
+  // }
+
+  &:nth-child(2) {
+    transform: rotateZ(#{$step}deg);
+  }
+
+  &:nth-child(3) {
+    transform: rotateZ(#{$step * 2}deg);
+  }
+
+  &:nth-child(4) {
+    transform: rotateZ(#{$step * 3}deg);
+  }
+
+  &:nth-child(5) {
+    transform: rotateZ(#{$step * 4}deg);
+  }
+
+  &:nth-child(6) {
+    transform: rotateZ(#{$step * 5}deg);
+  }
+
+  &:nth-child(7) {
+    transform: rotateZ(#{$step * 6}deg);
+  }
+
+  &:nth-child(8) {
+    transform: rotateZ(#{$step * 7}deg);
+  }
+}

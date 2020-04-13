@@ -1,0 +1,197 @@
+<div class="d-flex flex-wrap justify-content-center">
+  <div *ngFor="let letter of items | async" class="letter-preview text-primary"
+    [ngClass]="{'text-uppercase': game.isUppercase}"> {{letter.item}} </div>
+</div>
+<!--
+<div class="keyboard">
+  <div class="keyboard__line">
+    <div class="keyboard__key">
+      <div class="key__main">²</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">1</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">2</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">3</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">4</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">5</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">6</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">7</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">8</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">9</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">0</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">)</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">=</div>
+    </div>
+    <div class="keyboard__key" data-size="7">
+      <div class="key__main">←</div>
+    </div>
+  </div>
+  <div class="keyboard__line">
+    <div class="keyboard__key " data-size="3">
+      <div class="key__main keyboard__key--label">tab</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">a</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">z</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">e</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">r</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">t</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">y</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">u</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">i</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">o</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">p</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">^</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">$</div>
+    </div>
+    <div class="keyboard__key keyboard__key--enter" data-size="7">↵</div>
+  </div>
+  <div class="keyboard__line">
+    <div class="keyboard__key" data-size="4">
+      <div class="key__main">⇩ 🄰</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">q</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">s</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">d</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">f</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">g</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">h</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">j</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">k</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">l</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">m</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">%</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">ù</div>
+    </div>
+  </div>
+  <div class="keyboard__line">
+    <div class="keyboard__key">
+      <div class="key__main">⇧</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">&raquo;</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">w</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">x</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">c</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">v</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">b</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">n</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">,</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">;</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">:</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">!</div>
+    </div>
+    <div class="keyboard__key" data-size="6">
+      <div class="key__main">⇧</div>
+    </div>
+  </div>
+  <div class="keyboard__line">
+    <div class="keyboard__key" data-size="5">
+      <div class="key__main keyboard__key--label">ctrl</div>
+    </div>
+    <div class="keyboard__key">
+      <div class="key__main">❖</div>
+    </div>
+    <div class="keyboard__key ">
+      <div class="key__main keyboard__key--label">Alt</div>
+    </div>
+    <div class="keyboard__key keyboard__key--space" data-size="space">
+      <div class="__key__main"></div>
+    </div>
+    <div class="keyboard__key ">
+      <div class="key__main keyboard__key--label">AltGR</div>
+    </div>
+    <div class="keyboard__key" data-size="1">
+      <div class="key__main keyboard__key--label">▤</div>
+    </div>
+    <div class="keyboard__key" data-size="5">
+      <div class="key__main keyboard__key--label">Ctrl</div>
+    </div>
+  </div> -->
