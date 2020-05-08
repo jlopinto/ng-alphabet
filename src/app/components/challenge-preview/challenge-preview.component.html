@@ -1,6 +1,6 @@
 <div class="d-flex flex-wrap justify-content-center">
   <div *ngFor="let letter of items | async" class="letter-preview text-primary"
-    [ngClass]="{'text-uppercase': game.isUppercase}"> {{letter.item}} </div>
+    [ngClass]="{'text-uppercase': letter.isUppercase}"> {{letter.item}} </div>
 </div>
 <!--
 <div class="keyboard">

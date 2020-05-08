@@ -13,6 +13,7 @@
   position: relative;
   transform: rotate3d(0, 0, 0);
   transition: 2s ease-in;
+  backface-visibility: hidden;
 }
 
 .letter--balancing {
@@ -20,38 +21,46 @@
   animation: 2s ease-in-out infinite alternate balancing;
 }
 
+
 .letter__inner {
   position: absolute;
-  left: 0;
-  top: 1.125rem;
 
-  font-size: 3rem;
-  left: calc(50%);
+  font-size: 3em;
+
+  top: 50%;
+  left: 50%;
+
   line-height: 1;
-  transform: translate3d(-50%, 0, 0);
+  transform: translate3d(-50%, calc(-50% - 0.4em), 0);
 }
 
 @keyframes balancing {
   0% {
-    transform: rotate3d(0, 0, 1, -14deg);
+    transform: rotate3d(0, 0, 1, -10deg);
   }
 
   100% {
-    transform: rotate3d(0, 0, 1, 14deg);
-  }
-}
-
-@keyframes balancing2 {
-  0% {
-    transform: rotateX(20deg);
-  }
-
-  100% {
-    transform: rotateX(5deg);
+    transform: rotate3d(0, 0, 1, 10deg);
   }
 }
 
 .balloon {
-  max-width: 6rem;
+  max-width: 4rem;
   height: auto;
+}
+
+.balloon-1 {
+  fill: chocolate;
+}
+
+.balloon-2 {
+  fill: deeppink;
+}
+
+.balloon-3 {
+  fill: gold;
+}
+
+.balloon-4 {
+  fill: white;
 }

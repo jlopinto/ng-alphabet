@@ -84,7 +84,7 @@ export class SceneComponent {
             } else {
                 this.store.setChallenge(this.game.challenge);
             }
-            this.store.init(this.game.isRandom);
+            this.store.init(this.game);
         })
 
     }

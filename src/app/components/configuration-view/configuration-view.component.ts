@@ -15,13 +15,14 @@ export class ConfigurationViewComponent implements OnInit {
 
   configurationForm: FormGroup;
   subscriptions: Subscription;
+
   constructor(
     public game: GameService,
     public store: LettersStoreService
   ) {
     this.subscriptions = new Subscription();
     this.configurationForm = new FormGroup({
-      isUppercase: new FormControl(this.game.isUppercase),
+      challengeCase: new FormControl(this.game.challengeCase),
       isRandom: new FormControl(this.game.isRandom),
       challenge: new FormControl(this.store.challenge, [
         Validators.required
@@ -32,12 +33,15 @@ export class ConfigurationViewComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.configurationForm.controls.isRandom.valueChanges.subscribe(value => {
-      this.store.init(value);
+      this.game.isRandom = value;
+      this.store.init(this.game);
     });
 
-    this.configurationForm.controls.isUppercase.valueChanges.subscribe(value => {
-      this.game.isUppercase = value;
+    this.configurationForm.controls.challengeCase.valueChanges.subscribe(value => {
+      this.game.challengeCase = value;
+      this.store.init(this.game);
     });
   }
 
@@ -47,14 +51,13 @@ export class ConfigurationViewComponent implements OnInit {
 
   saveConf() {
 
-    const { challenge, isRandom, isUppercase, spawnTimer, fallingSpeed } = this.configurationForm.controls;
+    const { challenge, isRandom, challengeCase, spawnTimer, fallingSpeed } = this.configurationForm.controls;
 
     if (challenge.valid) {
       this.store.setChallenge(challenge.value);
     }
 
-    this.store.init(isRandom.value);
-    this.game.isUppercase = isUppercase.value;
+    this.game.challengeCase = challengeCase.value;
     this.game.isRandom = isRandom.value;
     this.game.spawnSpeed = spawnTimer.value * 1000;
     this.game.fallingSpeed = fallingSpeed.value;

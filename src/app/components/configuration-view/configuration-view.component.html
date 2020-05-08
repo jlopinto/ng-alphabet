@@ -8,16 +8,29 @@
       <div class="form-group mt-3">
         <label for="challenge">La liste des lettres en jeu</label>
 
-        <input type="text" class="form-control form-control-lg" [ngClass]="{'is-invalid': !configurationForm.controls.challenge.pristine && configurationForm.controls.challenge.invalid}" formControlName="challenge" id="challenge">
+        <input type="text" class="form-control form-control-lg"
+          [ngClass]="{'is-invalid': !configurationForm.controls.challenge.pristine && configurationForm.controls.challenge.invalid}"
+          formControlName="challenge" id="challenge">
         <small id="emailHelp" class="form-text text-muted">Ce jeu a été pensé pour afficher des lettres...</small>
       </div>
       <div class="form-group form-check">
         <input type="checkbox" class="form-check-input" formControlName="isRandom" id="isRandom">
         <label class="form-check-label" for="isRandom">Afficher les lettres dans le désordre</label>
       </div>
-      <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" formControlName="isUppercase" id="isUppercase">
-        <label class="form-check-label" for="isUppercase">Afficher les lettres en majuscules</label>
+      <div class="form-group">
+        <div>Définir la format des lettres</div>
+        <div class="form-check">
+          <input type="radio" class="form-check-input" formControlName="challengeCase" value="isUppercase" id="isUppercase">
+          <label class="form-check-label" for="isUppercase">En majuscules</label>
+        </div>
+        <div class="form-check">
+          <input type="radio" class="form-check-input" formControlName="challengeCase" value="isLowercase" id="isLowercase">
+          <label class="form-check-label" for="isLowercase">En minuscule</label>
+        </div>
+        <div class="form-check">
+          <input type="radio" class="form-check-input" formControlName="challengeCase" value="isRandomCase" id="isRandomCase">
+          <label class="form-check-label" for="isRandomCase">Mélange de minuscules et majuscules</label>
+        </div>
       </div>
       <div class="form-group">
         <label for="fallingSpeed">Vitesse de chute des lettres</label>
@@ -35,7 +48,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-secondary" (click)="cancelConf()" type="button" >
+      <button class="btn btn-secondary" (click)="cancelConf()" type="button">
         Annuler
       </button>
       <button class="btn btn-primary" (click)="saveConf()" type="submit" [disabled]="configurationForm.invalid">

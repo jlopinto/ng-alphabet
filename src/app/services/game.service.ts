@@ -18,7 +18,7 @@ export class GameService {
   spawnSpeed: number;
   fallingSpeed: number;
   fallingSpeedRange: number;
-  isUppercase: boolean;
+  challengeCase: string;
   isRandom: boolean;
   backgroundSound: HTMLAudioElement;
   runResult: object;
@@ -31,7 +31,7 @@ export class GameService {
     this.ended = false;
     this.paused = false;
     this.isRandom = true;
-    this.isUppercase = false;
+    this.challengeCase = 'lowerCase';
     this.challenge = 'abcdefghijklmnopqrstuvwxyz';
     this.loopID = null;
     this.spawnSpeed = 2500; //in milliseconds
@@ -41,12 +41,10 @@ export class GameService {
     this.backgroundSound.volume = 0.1;
     this.runResult = [];
     this.loadLocalPrefs();
-    // this.store.setChallenge(this.challenge);
-    // this.store.init(this.isRandom);
   }
 
   start() {
-    this.store.init(this.isRandom);
+    this.store.init(this);
     this.started = true;
     this.ended = false;
 
@@ -125,14 +123,14 @@ export class GameService {
 
     let prefs: any = localStorage.getItem('user_prefs') || false
 
-    if ( prefs ) {
+    if (prefs) {
       prefs = JSON.parse(prefs);
 
       this.challenge = prefs.challenge;
       this.fallingSpeed = prefs.fallingSpeed;
       this.spawnSpeed = prefs.spawnSpeed;
       this.isRandom = prefs.isRandom;
-      this.isUppercase = prefs.isUppercase;
+      this.challengeCase = prefs.challengeCase;
     }
   }
 
@@ -142,7 +140,7 @@ export class GameService {
       challenge: this.store.challenge,
       fallingSpeed: this.fallingSpeed,
       spawnSpeed: this.spawnSpeed,
-      isUppercase: this.isUppercase,
+      challengeCase: this.challengeCase,
       isRandom: this.isRandom
     };
 

@@ -16,15 +16,15 @@ export const letterFalling = animation(
   [
     style({
       top: 0,
-      left: '{{xStart}}',
-      transform: 'scale({{scale}})', // translate3d({{xStart}}, 0, 0)
+      // left: '{{xStart}}',
+      transform: 'scale({{scale}}) translate3d({{xStart}}, -110%, 0)',
       zIndex: '{{zIndex}}'
     }),
 
     animate('{{fallingSpeed}} 0s {{fallingEase}}', style({
-      top: '{{yEnd}}',
-      left: '{{xEnd}}',
-      transform: 'scale({{scale}})', // translate3d({{xEnd}}, {{yEnd}}, 0)
+      // top: '{{yEnd}}',
+      // left: '{{xEnd}}',
+      transform: 'scale({{scale}}) translate3d({{xEnd}}, 100vh, 0)',
     }))
   ], {
 });

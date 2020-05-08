@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { LettersStoreService } from 'src/app/services/letter-store.service';
 import { GameService } from 'src/app/services/game.service';
 import { Letter } from 'src/app/models/letter.model';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-challenge-preview',

@@ -33,7 +33,6 @@
   </div>
   <div class="sky">
     <app-sun></app-sun>
-
     <app-letter *ngFor="let letter of store.animatedLetters$ | async; trackBy: trackByFn" [letter]="letter">
     </app-letter>
     <div class="sea">

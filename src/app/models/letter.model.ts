@@ -3,5 +3,6 @@ export interface Letter {
   item: string,
   isAnimated: boolean,
   isFound: boolean,
-  isLost: boolean
+  isLost: boolean,
+  isUppercase: boolean
 }

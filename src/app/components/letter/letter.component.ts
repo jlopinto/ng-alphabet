@@ -26,7 +26,14 @@ export class LetterComponent {
   private easings: string[];
 
   @Input() letter: Letter;
-  fallingParams: { fallingSpeed: string; xStart: string; xEnd: string; yEnd: string; zIndex: string; scale: string; };
+  fallingParams: {
+    fallingSpeed: string;
+    xStart: string;
+    xEnd: string;
+    yEnd: string;
+    zIndex: string;
+    scale: string;
+  };
 
   @HostBinding('@falling') get fn() {
     return {
@@ -53,13 +60,16 @@ export class LetterComponent {
     public game: GameService,
     private store: LettersStoreService
   ) {
+
     this.letter = {
-      item: 'b', //ʕ•ᴥ•ʔ
+      item: 'G', //ʕ•ᴥ•ʔ
       id: 'nope',
       isAnimated: false,
       isFound: false,
-      isLost: false
+      isLost: false,
+      isUppercase: false
     }
+
     this.fallingState = 'lost';
     this.zIndexes = ['499', '399', '299', '199', '99'];
     this.scales = ['1', '0.9', '0.8', '0.7', '0.6'];

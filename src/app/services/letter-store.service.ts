@@ -73,21 +73,34 @@ export class LettersStoreService {
   }
 
   setChallenge(newChallenge) {
-    if(
+    if (
       newChallenge
-      && this.challenge !== newChallenge ) {
+      && this.challenge !== newChallenge) {
       this.challenge = newChallenge;
     }
   }
 
-  init(shuffle) {
+  init(game) {
+    const { isRandom: shuffle, challengeCase } = game;
+
     this.letters = [];
-    this.letters = this.challenge.split('').map(item => <Letter>{
-      id: uuid(),
-      item: item,
-      isAnimated: false,
-      isFound: false,
-      isLost: false
+    let isUppercase = false;
+    this.letters = this.challenge.split('').map(item => {
+
+      if (challengeCase === 'isRandomCase') {
+        isUppercase = Math.floor(Math.random() * Math.floor(2)) === 1;
+      } else {
+        isUppercase = challengeCase === 'isUppercase';
+      }
+
+      return <Letter>{
+        id: uuid(),
+        item: item,
+        isAnimated: false,
+        isFound: false,
+        isLost: false,
+        isUppercase
+      }
     })
 
     if (shuffle) {
