@@ -31,11 +31,11 @@ export class GameService {
     this.ended = false;
     this.paused = false;
     this.isRandom = true;
-    this.challengeCase = 'lowerCase';
+    this.challengeCase = 'isRandomCase';
     this.challenge = 'abcdefghijklmnopqrstuvwxyz';
     this.loopID = null;
-    this.spawnSpeed = 2500; //in milliseconds
-    this.fallingSpeed = 6; //in seconds
+    this.spawnSpeed = 5; //in seconds
+    this.fallingSpeed = 15; //in seconds
     this.fallingSpeedRange = 1; //in seconds
     this.backgroundSound = new Audio(`../../../assets/audio/plage.mp3`);
     this.backgroundSound.volume = 0.1;

@@ -49,7 +49,7 @@ body {
   left: 0;
   right: 0;
   opacity: .4;
-  height: 3em;  
+  height: 2em;  
   width: 100%;
 
   overflow: visible;
@@ -71,33 +71,31 @@ body {
     animation-direction: alternate;
   }
 
-  &:nth-child(5) {
-    height: 6em;
-    background-color: rgba(#6ca6fc, 1);
+  // &:nth-child(5) {
+  //   height: 6em;
+  //   background-color: rgba(#6ca6fc, 1);
 
-    z-index: 500;
+  //   z-index: 500;
 
-    &:before {
-      background-image: radial-gradient(circle at 10px -2px, transparent 12px, #6ca6fc 13px);
-    }
-  }
+  //   &:before {
+  //     background-image: radial-gradient(circle at 10px -2px, transparent 12px, #6ca6fc 13px);
+  //   }
+  // }
 
-  &:nth-child(4) {
-    height: 9em;
-    background-color: rgba(#5396fc, 1);
+  // &:nth-child(4) {
+  //   height: 9em;
+  //   background-color: rgba(#5396fc, 1);
 
-    z-index: 400;
+  //   z-index: 400;
 
-    &:before {
-      animation-direction: alternate-reverse;
-      background-image: radial-gradient(circle at 10px -2px, transparent 12px, #5396fc 13px);
-    }
-  }
+  //   &:before {
+  //     animation-direction: alternate-reverse;
+  //     background-image: radial-gradient(circle at 10px -2px, transparent 12px, #5396fc 13px);
+  //   }
+  // }
   &:nth-child(3) {
-    height: 12em;
 
     background-color: rgba(#3a87fc, 1);
-
     z-index: 300;
 
     &::before {
@@ -105,10 +103,9 @@ body {
     }
   }
   &:nth-child(2) {
-    height: 15em;
+    height: 4em;
 
     background-color: rgba(#2078fc, 1);
-
     z-index: 200;
 
     &:before {
@@ -117,11 +114,9 @@ body {
     }
   }
   &:nth-child(1) {
-    height: 18em;
+    height: 6em;
 
-    animation: none;
     background-color: rgba(#0769fc, 1);
-
     z-index: 100;
 
     &:before {

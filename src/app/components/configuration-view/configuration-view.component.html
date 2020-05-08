@@ -10,7 +10,7 @@
 
         <input type="text" class="form-control form-control-lg"
           [ngClass]="{'is-invalid': !configurationForm.controls.challenge.pristine && configurationForm.controls.challenge.invalid}"
-          formControlName="challenge" id="challenge">
+          formControlName="challenge" id="challenge" maxlength="48">
         <small id="emailHelp" class="form-text text-muted">Ce jeu a été pensé pour afficher des lettres...</small>
       </div>
       <div class="form-group form-check">
@@ -20,21 +20,24 @@
       <div class="form-group">
         <div>Définir la format des lettres</div>
         <div class="form-check">
-          <input type="radio" class="form-check-input" formControlName="challengeCase" value="isUppercase" id="isUppercase">
-          <label class="form-check-label" for="isUppercase">En majuscules</label>
+          <input type="radio" class="form-check-input" formControlName="challengeCase" value="isUpperCase"
+            id="isUpperCase">
+          <label class="form-check-label" for="isUpperCase">En majuscules</label>
         </div>
         <div class="form-check">
-          <input type="radio" class="form-check-input" formControlName="challengeCase" value="isLowercase" id="isLowercase">
-          <label class="form-check-label" for="isLowercase">En minuscule</label>
+          <input type="radio" class="form-check-input" formControlName="challengeCase" value="isLowerCase"
+            id="isLowerCase">
+          <label class="form-check-label" for="isLowerCase">En minuscule</label>
         </div>
         <div class="form-check">
-          <input type="radio" class="form-check-input" formControlName="challengeCase" value="isRandomCase" id="isRandomCase">
+          <input type="radio" class="form-check-input" formControlName="challengeCase" value="isRandomCase"
+            id="isRandomCase">
           <label class="form-check-label" for="isRandomCase">Mélange de minuscules et majuscules</label>
         </div>
       </div>
       <div class="form-group">
         <label for="fallingSpeed">Vitesse de chute des lettres</label>
-        <input type="range" min=".5" max="10" step=".5" class="form-control-range" formControlName="fallingSpeed"
+        <input type="range" min=".5" max="20" step=".5" class="form-control-range" formControlName="fallingSpeed"
           id="fallingSpeed">
         <small id="emailHelp" class="form-text text-muted">Actuellement défini à
           {{configurationForm.controls.fallingSpeed.value}}s</small>
@@ -50,6 +53,9 @@
     <div class="modal-footer">
       <button class="btn btn-secondary" (click)="cancelConf()" type="button">
         Annuler
+      </button>
+      <button class="btn btn-secondary" (click)="resetConf()" type="button">
+        Reset
       </button>
       <button class="btn btn-primary" (click)="saveConf()" type="submit" [disabled]="configurationForm.invalid">
         Valider

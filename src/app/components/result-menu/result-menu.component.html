@@ -9,9 +9,8 @@
       </div>
       <div *ngIf="result !== false" class="mt-4">
         <div>
-          <span>{{result.success.length}} sur {{result.challenge.length}}
-            lettre{{result.success.length > 0 ? 's' : ''}}</span>
-          sauvée{{result.success.length > 0 ? 's' : ''}}:
+          <span>{{result.success.length}} lettre{{result.success.length > 0 ? 's' : ''}} sur {{result.challenge.length}}
+            sauvée{{result.success.length > 0 ? 's' : ''}}:</span>
           <span *ngIf="result.success.length === 0; else asSuccess">😟</span>
           <ng-template #asSuccess>
             <app-challenge-preview [items]="result.success"></app-challenge-preview>

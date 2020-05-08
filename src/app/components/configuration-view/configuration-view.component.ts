@@ -43,6 +43,11 @@ export class ConfigurationViewComponent implements OnInit {
       this.game.challengeCase = value;
       this.store.init(this.game);
     });
+
+    this.configurationForm.controls.challenge.valueChanges.subscribe(value => {
+      this.store.setChallenge(value);
+      this.store.init(this.game);
+    });
   }
 
   cancelConf() {
@@ -64,6 +69,14 @@ export class ConfigurationViewComponent implements OnInit {
     this.toggleConfMenu.emit(false);
     this.game.saveLocalPrefs();
     return false;
+  }
+
+  resetConf() {
+    this.configurationForm.controls.challenge.setValue('abcdefghijklmnopqrstuvwxyz');
+    this.configurationForm.controls.challengeCase.setValue('isRandomCase');
+    this.configurationForm.controls.fallingSpeed.setValue(15);
+    this.configurationForm.controls.spawnTimer.setValue(5);
+    this.game.saveLocalPrefs();
   }
 
   ngOnDestroy() {

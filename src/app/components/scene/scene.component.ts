@@ -79,7 +79,7 @@ export class SceneComponent {
         this.sub = this.route.paramMap.subscribe((params) => {
             let paramChallenge = params.get('challenge');
             if (paramChallenge && paramChallenge !== this.game.challenge) {
-                this.store.setChallenge(paramChallenge);
+                this.store.setChallenge(paramChallenge.substr(0, 48));
                 this.game.saveLocalPrefs();
             } else {
                 this.store.setChallenge(this.game.challenge);

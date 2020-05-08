@@ -71,7 +71,7 @@ export class LetterComponent {
     }
 
     this.fallingState = 'lost';
-    this.zIndexes = ['499', '399', '299', '199', '99'];
+    this.zIndexes = ['299', '199', '99'];
     this.scales = ['1', '0.9', '0.8', '0.7', '0.6'];
     this.easings = ['cubic-bezier(0.55, 0, 1, 0.45)', 'cubic-bezier(0.32, 0, 0.67, 0)', 'cubic-bezier(0.12, 0, 0.39, 0)']
   }
