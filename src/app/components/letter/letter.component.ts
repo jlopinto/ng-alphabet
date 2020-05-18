@@ -4,6 +4,7 @@ import { Letter } from 'src/app/models/letter.model';
 import { GameService } from 'src/app/services/game.service';
 import { LettersStoreService } from 'src/app/services/letter-store.service';
 import { letterFalling, found } from 'src/app/animations.module';
+import { SoundService } from 'src/app/services/sounds.service';
 
 @Component({
   selector: 'app-letter',
@@ -24,6 +25,7 @@ export class LetterComponent {
   private zIndexes: string[];
   private scales: string[];
   private easings: string[];
+  private itemVoiceSound: HTMLAudioElement;
 
   @Input() letter: Letter;
   fallingParams: {
@@ -52,13 +54,14 @@ export class LetterComponent {
   }
 
   @HostListener('tap', ['$event'])
-  handleClickEvent(event) {
+  handleClickEvent() {
     return this.letterFound(this.letter.item);
   }
 
   constructor(
     public game: GameService,
-    private store: LettersStoreService
+    private store: LettersStoreService,
+    private gameSound: SoundService
   ) {
 
     this.letter = {
@@ -102,17 +105,11 @@ export class LetterComponent {
       this.letter.item === key &&
       this.store.letters.filter(storeLetter => storeLetter.item === this.letter.item && storeLetter.isFound === false)
     ) {
-
-
       if (this.fallingState === 'found') {
         return
       }
-
       this.fallingState = 'found';
-      const audio = new Audio(`../../../assets/audio/${this.letter.item}.mp3`);
-      audio.volume = 0.4;
-      audio.play();
-
+      this.itemVoiceSound.play();
       return false;
     }
   }
@@ -146,17 +143,14 @@ export class LetterComponent {
 
       if (fromState === 'void' && toState === 'lost' && state === 'lost') {
         this.store.setLost(letter, true);
-        const audio = new Audio(`../../../assets/audio/plouf.mp3`);
-        audio.addEventListener('loadeddata', () => {
-          audio.volume = 0.2;
-          audio.play();
-        });
+        this.gameSound.playLostSound();
       }
-
     }
   }
 
   ngOnInit() {
     this.fallingParams = this.setFallingParams();
+    this.itemVoiceSound = new Audio(`../../../assets/audio/${this.letter.item}.mp3`);
+    this.itemVoiceSound.volume = .4;
   }
 }

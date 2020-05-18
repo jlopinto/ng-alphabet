@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { combineLatest } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { LettersStoreService } from './letter-store.service';
+import { SoundService } from './sounds.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,19 +14,18 @@ export class GameService {
   paused: boolean;
   ended: boolean;
   challenge: string;
-
   loopID: any;
   spawnSpeed: number;
   fallingSpeed: number;
   fallingSpeedRange: number;
   challengeCase: string;
   isRandom: boolean;
-  backgroundSound: HTMLAudioElement;
   runResult: object;
   gameEnd: any;
 
   constructor(
-    private store: LettersStoreService
+    private store: LettersStoreService,
+    private gameSound: SoundService
   ) {
     this.started = false;
     this.ended = false;
@@ -37,8 +37,6 @@ export class GameService {
     this.spawnSpeed = 5; //in seconds
     this.fallingSpeed = 15; //in seconds
     this.fallingSpeedRange = 1; //in seconds
-    this.backgroundSound = new Audio(`../../../assets/audio/plage.mp3`);
-    this.backgroundSound.volume = 0.1;
     this.runResult = [];
     this.loadLocalPrefs();
   }
@@ -49,10 +47,12 @@ export class GameService {
     this.ended = false;
 
     this.loop();
-    this.backgroundSound.play();
+    this.gameSound.playBackgroundSound();
     this.resolve();
 
   }
+
+
 
   loop() {
     this.animateLetter();
@@ -89,7 +89,7 @@ export class GameService {
       }
     }
     this.store.reset();
-    this.backgroundSound.pause();
+    this.gameSound.pauseBackgroundSound();
   }
 
   resolve() {
@@ -145,5 +145,11 @@ export class GameService {
     };
 
     localStorage.setItem('user_prefs', JSON.stringify(prefs));
+  }
+
+  playSound(item, volume = 0.4) {
+    const audio = new Audio(`../../../assets/audio/${item}.mp3`);
+    audio.volume = volume;
+    return audio;
   }
 }
