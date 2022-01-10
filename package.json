@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 192.168.1.25",
+    "start": "ng serve",
     "release": "ng build --prod --aot && cp -R ./dist/ng-alphabet/* ~/hosting/game",
     "build": "ng build",
     "test": "ng test",
@@ -22,7 +22,6 @@
     "@angular/router": "~9.1.0",
     "@angular/service-worker": "~9.1.0",
     "@babel/compat-data": "^7.9.0",
-    "@ng-bootstrap/ng-bootstrap": "~5.2.2",
     "bootstrap": "^4.4.1",
     "hammerjs": "^2.0.8",
     "rxjs": "~6.5.4",
